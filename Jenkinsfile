@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_REPO_CREDENTIALS = '26eb1a48-34cd-4b4c-852c-c08ff0eadcb7'
         DOCKER_IMAGE = '9148092892/thanu'          
-        GIT_REPO = 'https://github.com/Shri19-web/Docker.git'
+        GIT_REPO = 'https://github.com/Thanushree841/docker.git'
         BRANCH = 'master'
     }
 
