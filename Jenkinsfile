@@ -1,11 +1,11 @@
 pipeline {
-    agent { label 'docker' }
+    agent any
 
     environment {
-        DOCKER_REPO_CREDENTIALS = '26eb1a48-34cd-4b4c-852c-c08ff0eadcb7'
-        DOCKER_IMAGE = '9148092892/thanu'          
-        GIT_REPO = 'https://github.com/Thanushree841/docker.git'
-        BRANCH = 'master' 
+        DOCKER_REPO_CREDENTIALS = 'a5528c83-e532-4484-ae9b-135493e3957b'
+        DOCKER_IMAGE = '148092892/kubernetes'          
+        GIT_REPO = 'https://github.com/Thanushree841/kubernetes.git'
+        BRANCH = 'main' 
     }
 
     stages {
@@ -19,12 +19,9 @@ pipeline {
        stage('Build Docker Image') {
             steps {
                 script {
-                    COMMIT_HASH = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
-                    IMAGE_TAG_COMMIT = "${DOCKER_IMAGE}:${COMMIT_HASH}"
                     IMAGE_TAG_LATEST = "${DOCKER_IMAGE}:latest"
-
-                    echo "Building Docker image with tags: ${IMAGE_TAG_COMMIT} and ${IMAGE_TAG_LATEST}"
-                    sh "docker build -t ${IMAGE_TAG_COMMIT} -t ${IMAGE_TAG_LATEST} ."
+                    echo "Building Docker image with tag: ${IMAGE_TAG_LATEST}"
+                    sh "docker build -t ${IMAGE_TAG_LATEST} ."
                 }
             }
         }
@@ -44,9 +41,7 @@ pipeline {
             steps {
                 script {
                     echo "Pushing images to registry"
-                    echo "IMAGE_TAG_COMMIT: ${IMAGE_TAG_COMMIT}"
                     echo "IMAGE_TAG_LATEST: ${IMAGE_TAG_LATEST}"
-                    sh "docker push ${IMAGE_TAG_COMMIT}"
                     sh "docker push ${IMAGE_TAG_LATEST}"
                 }
             }
@@ -55,13 +50,11 @@ pipeline {
 
     post {
         success {
-            echo " Build and push completed successfully!"
+            echo " Deployment succeeded!"
         }
         failure {
-            echo " Build or push failed. Check logs for details."
-        }
-        always {
-            echo " Build finished: ${currentBuild.currentResult}"
+            echo " Deployment failed!"
         }
     }
 }
+         
