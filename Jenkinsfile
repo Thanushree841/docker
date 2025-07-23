@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_REPO_CREDENTIALS = 'a5528c83-e532-4484-ae9b-135493e3957b'
+        DOCKER_REPO_CREDENTIALS = '6c0285c6-6495-4e45-91d2-9c7e59e91cbf'
         DOCKER_IMAGE = '148092892/kubernetes'          
         GIT_REPO = 'https://github.com/Thanushree841/kubernetes.git'
         BRANCH = 'main' 
